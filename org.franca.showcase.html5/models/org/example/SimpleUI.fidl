@@ -1,0 +1,41 @@
+package org.example
+
+/*
+* Interface used for HTML5/Websockets example.
+*/
+interface SimpleUI {
+	
+	attribute String clock readonly
+
+	method playMusic {
+		in { Genre genre }
+	}
+	
+	method startNavigation {
+		in {
+			String street
+			String city
+		}
+		out {
+			UInt32 routeLength
+			String arrivalTime
+		}
+	}
+
+	broadcast updateVelocity {
+		out { UInt16 velocity }
+	}
+
+	broadcast playingTitle {
+		out { String title }
+	}
+
+	enumeration Genre {
+		M_NONE
+		M_POP
+		M_TECHNO
+		M_TRANCE
+	}
+
+}
+
