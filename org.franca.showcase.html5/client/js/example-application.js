@@ -30,6 +30,15 @@ function initApp() {
 	var proxy = new SimpleUIProxy();
 	proxy.connect('ws://localhost:8181');
 
+	proxy.onOpened = function() {
+		console.log('The connection has been opened!')
+		proxy.subscribeClockChanged();
+	}
+	
+	proxy.onClosed = function() {
+		console.log('The connection has been closed!')
+	}
+
 	// register callback for SimpleUI.onChangedClock() updates
 	proxy.onChangedClock = function(clock) {
 		$('#tClock').text(clock);
@@ -45,15 +54,6 @@ function initApp() {
 		tacho.set(velocity);
 	};
 	
-	proxy.onOpened = function() {
-		console.log('The connection has been opened!')
-		proxy.subscribeClockChanged();
-	}
-	
-	proxy.onClosed = function() {
-		console.log('The connection has been closed!')
-	}
-
 	// connect UI buttons with playMusic() calls
 	$("#m1").click(function() { proxy.playMusic(Genre.M_NONE); });
 	$("#m2").click(function() { proxy.playMusic(Genre.M_POP); });
