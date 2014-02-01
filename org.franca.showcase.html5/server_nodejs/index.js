@@ -12,9 +12,9 @@ var HttpServer = require('./base/util/HttpServer');
 var http = new HttpServer();
 http.init(8180, '../client');
 
-// MusicPlayer application
-var MusicPlayer = require('./applications/MusicPlayer');
-var player = new MusicPlayer();
+// Music player application
+var StreamPlayer = require('./applications/StreamPlayer');
+var player = new StreamPlayer();
 
 // Vehicle application
 var Vehicle = require('./applications/Vehicle');
