@@ -11,9 +11,7 @@ Player = require('player');
 /*
     Music player component.
 
-    Currently it is able to play mp3 streams from icecast servers.
-    It will also intercept meta data events and provide some information a
-    about artist/title of the currently played song.
+    Currently it is able to play mp3 files from local or remote (URL).
 */
 
 function MusicPlayer() {
