@@ -21,6 +21,11 @@ var Vehicle = require('./applications/Vehicle');
 var vehicle = new Vehicle();
 vehicle.init();
 
+// MQTT application
+var MQTTClient = require('./applications/MQTTClient');
+var mqtt = new MQTTClient();
+mqtt.connect(1883, 'm2m.eclipse.org');
+
 // create websocket stub for SimpleUI interface and listen to websocket port.
 var SimpleUIStub = require('./gen/org/example/SimpleUIStub');
 var stub = new SimpleUIStub(8181);
