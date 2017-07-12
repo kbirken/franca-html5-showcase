@@ -5,6 +5,9 @@
 * which accompanies this distribution, and is available at
 * http://www.eclipse.org/legal/epl-v10.html
 *******************************************************************************/
+var log4js = require('log4js');
+log4js.configure('log4js-conf.json');
+var logger = log4js.getLogger('Application');
 
 // create http server and listen to port 8080
 // we need this to serve index.html and other files to the client
@@ -31,14 +34,14 @@ stub.clock = getTime();
 stub.init();
 
 stub.onClientConnected = function(clientID) {
-	console.log('The ID of the newly connected client is ' + clientID);
+	logger.info('The ID of the newly connected client is ' + clientID);
 };
 
 stub.onClientDisconnected = function(clientID) {
-	console.log('The client with ID ' + clientID + ' has disconnected');
+	logger.info('The client with ID ' + clientID + ' has disconnected');
 }
 
-stub.playMusic = function (genre) {
+stub.playMusic = function (genre, reply) {
 	var d = "";
 	
 	switch (genre) {
@@ -48,6 +51,7 @@ stub.playMusic = function (genre) {
 		case SimpleUIStub.Genre.M_TRANCE: player.play('http://firewall.trance.pulsradio.com'); break;
 		default: console.error("Invalid value " + genre + " for parameter 'genre'!");
 	}
+	reply();
 }
 
 player.onStreamTitle = function(title) {
@@ -60,9 +64,12 @@ vehicle.onUpdateVelocity = function(vel) {
     stub.updateVelocity(vel);
 }
 
-stub.startNavigation = function (street, city) {
-	console.log("startNavigation: street=" + street + " city=" + city);
-	return {"routeLength" : street.length + 10*city.length, "arrivalTime" : "22:00"};
+stub.startNavigation = function (street, city, reply) {
+	logger.info("startNavigation: street=" + street + " city=" + city);
+	reply({
+		"routeLength" : street.length + 10*city.length,
+		"arrivalTime" : "22:00"
+	});
 };
 
 
